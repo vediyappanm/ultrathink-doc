@@ -1,0 +1,10 @@
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Common build dirs (not used now, but safe)
+node_modules/
+dist/
+build/
+.tmp/
+.cache/
