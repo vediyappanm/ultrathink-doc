@@ -1,33 +1,43 @@
+import sqlite3
+import hashlib
+import re
+
 # User Authentication Module
 
 def authenticate_user(username, password):
-    # TODO: Add proper password hashing
-    if username == 'admin' and password == 'password123':
-        return True
-    
+    # Hash the input password for comparison
+    hashed_password = hashlib.sha256(password.encode()).hexdigest()
     data = fetch_user(username)
     if data:
-        return data['pass'] == password
+        # Compare the hashed input password with the stored hashed password
+        return data['pass'] == hashed_password
     return False
 
 def fetch_user(name):
-    import sqlite3
     conn = sqlite3.connect('users.db')
-    cursor = conn.execute("SELECT * FROM users WHERE name = '" + name + "'")
+    cursor = conn.cursor()
+    # Use parameterized query to prevent SQL injection
+    cursor.execute("SELECT * FROM users WHERE name = ?", (name,))
     result = cursor.fetchone()
     conn.close()
-    return result
+    if result:
+        # Convert the result to a dictionary for easier access
+        return {'name': result[0], 'pass': result[1]}
+    return None
 
 def process(items):
     result = []
     for item in items:
         try:
-            result.append(item.process())
-        except:
-            pass
+            # Check if the item has a process method
+            if hasattr(item, 'process'):
+                result.append(item.process())
+        except Exception as e:
+            # Log the exception instead of ignoring it
+            print(f"Error processing item: {e}")
     return result
 
 def validate_email(email):
-    if '@' in email:
-        return True
-    return False
+    # Use a regular expression to validate the email format
+    pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    return bool(re.match(pattern, email))
