@@ -1,0 +1,40 @@
+{
+  "generated": "2026-03-03T17:09:25.727Z",
+  "files": [
+    {
+      "path": "src/auth.py",
+      "language": "python",
+      "exports": [
+        "authenticate_user",
+        "fetch_user",
+        "process",
+        "validate_email"
+      ],
+      "imports": [],
+      "signatures": [
+        "def authenticate_user(username, password)",
+        "def fetch_user(name)",
+        "def process(items)",
+        "def validate_email(email)"
+      ],
+      "lineCount": 44
+    },
+    {
+      "path": "src/shop.py",
+      "language": "python",
+      "exports": [
+        "get_user_orders",
+        "process_payment",
+        "is_valid_user"
+      ],
+      "imports": [],
+      "signatures": [
+        "def get_user_orders(user_id)",
+        "def process_payment(amount, card)",
+        "def is_valid_user(username)"
+      ],
+      "lineCount": 21
+    }
+  ],
+  "importGraph": {}
+}
