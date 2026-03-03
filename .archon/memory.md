@@ -1,162 +1,45 @@
 # Archon Project Memory
-> Last full scan: 2026-02-28
+> Last full scan: 2026-03-03
 > Repository: vediyappanm/ultrathink-doc
-> Last updated: 2026-03-03 (after PR #14)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Project Overview
-This project appears to be a documentation site for Ultrathink, with a simple HTML index page and authentication handled by a Python script. The tech stack includes Python, HTML, and potentially Netlify for deployment. The purpose of this project is to provide documentation for Ultrathink.
-
-
-
-
-
-
-
-
-
-
-
-
-
+Ultrathink-doc is a documentation/shop site for Ultrathink, deployed on Netlify. It uses a static HTML frontend (`index.html`) with Python backend scripts handling authentication (`auth.py`) and shop logic (`shop.py`). The project has a minimal file structure with Netlify handling deployment.
 
 ## Architecture
-* The project has a simple file structure with a single authentication script (`auth.py`) and an index page (`index.html`)
-* The `netlify.toml` file suggests that the project is deployed on Netlify
-* The entry point of the project is likely the `index.html` file
-* The `auth.py` script is used for authentication, but its exact role is unclear without more context
-
-
-
-
-
-
-
-
-
-
-
-
-
+- `index.html` — primary entry point / frontend
+- `src/auth.py` — authentication logic
+- `src/shop.py` — shop/commerce logic
+- `netlify.toml` — Netlify deployment configuration
+- `ultrathink_doc (1).html.html` — likely a stale/duplicate HTML artifact, not actively used
 
 ## Tech Stack
-* Python (version not specified)
-* HTML (version not specified)
-* Netlify (version not specified)
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Python (version not specified) — backend scripts
+- HTML — frontend/documentation pages
+- Netlify — deployment and hosting
 
 ## Team Conventions
-* No prior reviews, so this section is empty
-- No hardcoded secrets — use environment variables (learned from PR #10)
-- Use parameterized queries — no string concatenation for SQL (learned from PR #10)
-- Validate and sanitize all user input (learned from PR #10)
-- Use parameterized queries, not string concatenation for SQL in src/*.py (learned from PR #14)
-- Use parameterized queries, not string concatenation for SQL in src/*.py (learned from PR #14)
-
+- Use parameterized queries, not string concatenation for SQL in `src/*.py`
+- Use environment variables for secrets, never hardcode credentials in `src/*.py`
+- Validate and sanitize all user input before processing in `src/*.py`
+- Use specific except clauses, not bare `except:` in `src/*.py`
 
 ## Known Weak Areas
-* No prior reviews, so this section is empty
-- SQL injection vulnerability in `src/qa-test.py` (critical, PR #10)
-- Hardcoded password in `src/qa-test.py` (high, PR #10)
-- Hardcoded secret in `src/qa-test.py` (critical, PR #10)
-- SQL injection vulnerability in `src/qa-test.py` (critical, PR #10)
-- Bare except clause in `src/qa-test.py` (high, PR #10)
-- Missing input validation in `src/qa-test.py` (high, PR #10)
-- Hardcoded password in `src/qa-test.py` (critical, PR #10)
-- SQL injection vulnerability in `src/qa-test.py` (critical, PR #10)
-- Bare except clause in `src/qa-test.py` (high, PR #10)
-- Missing input validation in `src/qa-test.py` (high, PR #10)
-- Hardcoded password in `src/qa-test.py` (critical, PR #10)
-- SQL injection vulnerability in `src/qa-test.py` (critical, PR #10)
-- Bare except clause in `src/qa-test.py` (high, PR #10)
-- Missing input validation in `src/qa-test.py` (high, PR #10)
-- Hardcoded password in `src/qa-test.py` (critical, PR #14)
-- SQL injection vulnerability in `src/qa-test.py` (critical, PR #14)
-- Bare except clause in `src/qa-test.py` (high, PR #14)
-- Missing input validation in `src/qa-test.py` (high, PR #14)
-- Hardcoded password in `src/qa-test.py` (critical, PR #14)
-- SQL injection vulnerability in `src/qa-test.py` (critical, PR #14)
-- Bare except clause in `src/qa-test.py` (high, PR #14)
-- Missing input validation in `src/qa-test.py` (high, PR #14)
-- Hardcoded password in `src/qa-test.py` (critical, PR #14)
-- SQL injection vulnerability in `src/qa-test.py` (critical, PR #14)
-- Bare except clause in `src/qa-test.py` (high, PR #14)
-- Missing input validation in `src/qa-test.py` (high, PR #14)
-- Hardcoded password in `src/qa-test.py` (critical, PR #14)
-- SQL injection vulnerability in `src/qa-test.py` (critical, PR #14)
-- Bare except clause in `src/qa-test.py` (high, PR #14)
-- Missing input validation in `src/qa-test.py` (high, PR #14)
-- SQL injection vulnerability in `src/qa-test.py` (critical, PR #14)
-- Hardcoded password in `src/qa-test.py` (critical, PR #14)
-- Bare except clause in `src/qa-test.py` (high, PR #14)
-- Missing input validation in `src/qa-test.py` (high, PR #14)
-- Hardcoded password in `src/qa-test.py` (critical, PR #14)
-- SQL injection vulnerability in `src/qa-test.py` (critical, PR #14)
-- Bare except clause in `src/qa-test.py` (high, PR #14)
-- Missing input validation in `src/qa-test.py` (high, PR #14)
-- Hardcoded secrets — src/*.py — seen 1 time (PR #14)
-- SQL injection risk — src/*.py — seen 1 time (PR #14)
-- Bare except clause — src/*.py — seen 1 time (PR #14)
-- Missing input validation — src/*.py — seen 1 time (PR #14)
-
+- SQL injection risk — `src/*.py` — seen 5+ times (PRs #10, #14)
+- Hardcoded secrets/passwords — `src/*.py` — seen 5+ times (PRs #10, #14)
+- Bare except clauses — `src/*.py` — seen 4+ times (PRs #10, #14)
+- Missing input validation — `src/*.py` — seen 4+ times (PRs #10, #14)
+- Stale/duplicate file artifact — `ultrathink_doc (1).html.html` — seen 1 time
 
 ## Architecture Decisions
-* The use of a Python script for authentication suggests that the project may be using a Python-based backend or framework, but this is not clear from the provided files
-* The presence of a Netlify configuration file suggests that the project is intended for deployment on Netlify
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Static HTML + Python scripts — lightweight documentation site architecture — reviewers: verify no sensitive logic is exposed in HTML files
+- Netlify deployment — static hosting with possible serverless functions — reviewers: confirm `netlify.toml` redirects and build settings are appropriate for each environment
+- Separate `auth.py` and `shop.py` — concerns are split by domain — reviewers: ensure auth checks are enforced before any shop operations
 
 ## Files to Always Check
-* `auth.py`: This file handles authentication and may contain sensitive information or complex logic
-* `netlify.toml`: This file contains configuration settings for Netlify deployment and may require updates or changes for different environments
-
-
-
-
-
-
-
-
-
-
-
-
-
+- `src/auth.py` — check for hardcoded credentials, bare except clauses, parameterized queries, and input validation
+- `src/shop.py` — check for SQL injection risks, missing input validation, and proper auth enforcement before operations
+- `netlify.toml` — verify environment-specific settings and no secrets committed
+- `ultrathink_doc (1).html.html` — verify this stale duplicate is intentional and contains no sensitive data; consider removing
 
 ## Manual Overrides
 _This section is edited by the team. Preserve any existing content._
